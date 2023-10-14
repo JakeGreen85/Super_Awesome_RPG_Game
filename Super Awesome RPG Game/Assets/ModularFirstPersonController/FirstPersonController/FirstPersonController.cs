@@ -258,6 +258,7 @@ public class FirstPersonController : MonoBehaviour
                 }
             }
 
+            // Change for instant zoom-in
             // Lerps camera.fieldOfView to allow for a smooth transistion
             if(isZoomed)
             {
@@ -303,7 +304,7 @@ public class FirstPersonController : MonoBehaviour
             if(isSprintCooldown)
             {
                 sprintCooldown -= 1 * Time.deltaTime;
-                if (sprintCooldown <= 0)
+                if (sprintCooldown <= 0) // Might be able to sprint forever? increase to 1?
                 {
                     isSprintCooldown = false;
                 }
@@ -384,7 +385,7 @@ public class FirstPersonController : MonoBehaviour
                 isWalking = false;
             }
 
-            // All movement calculations shile sprint is active
+            // All movement calculations while sprint is active
             if (enableSprint && Input.GetKey(sprintKey) && sprintRemaining > 0f && !isSprintCooldown)
             {
                 targetVelocity = transform.TransformDirection(targetVelocity) * sprintSpeed;
@@ -441,7 +442,7 @@ public class FirstPersonController : MonoBehaviour
         #endregion
     }
 
-    // Sets isGrounded based on a raycast sent straigth down from the player object
+    // Sets isGrounded based on a raycast sent straight down from the player object
     private void CheckGround()
     {
         Vector3 origin = new Vector3(transform.position.x, transform.position.y - (transform.localScale.y * .5f), transform.position.z);
