@@ -143,21 +143,26 @@ MonoBehaviour:
   Name: Warrior
   Level: 1
   Health: 100
-  Armor: 0
+  Armor: 50
   Mana: 100
   Dmg: 1
   AttackRange: 3
   Exp: 0
-  Invinsible: 0
   Character_Class: 0
-  _chargeSpeed: 0
-  chargeDelay: 0
-  chargeDuration: 0
+  Invinsible: 0
+  Stun: 0
+  _chargeSpeed: 20
+  chargeDelay: 1
+  chargeDuration: 2
+  knockback: 10
+  knockbackDmgMultiplier: 0.3
   _isCharging: 0
-  armorMultiplier: 0
-  multiplierDuration: 0
-  ultimateRange: 0
-  ultimateDuration: 0
+  armorMultiplier: 2
+  multiplierDuration: 5
+  windUpDuration: 1
+  damageMultiplier: 3
+  ultimateRange: 20
+  ultimateDuration: 5
 --- !u!1 &55487865
 GameObject:
   m_ObjectHideFlags: 0
@@ -381,6 +386,7 @@ GameObject:
   - component: {fileID: 599029318}
   - component: {fileID: 599029317}
   - component: {fileID: 599029316}
+  - component: {fileID: 599029320}
   m_Layer: 0
   m_Name: Cube (1)
   m_TagString: Untagged
@@ -397,7 +403,7 @@ Transform:
   m_GameObject: {fileID: 599029314}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3, y: 1.5, z: -10}
+  m_LocalPosition: {x: 3, y: 1, z: -10}
   m_LocalScale: {x: 1, y: 3, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -417,14 +423,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: 
   Level: 0
-  Health: 0
+  Health: 10
   Armor: 0
   Mana: 0
   Dmg: 0
   AttackRange: 0
   Exp: 0
-  Invinsible: 0
   Character_Class: 0
+  Invinsible: 0
+  Stun: 0
 --- !u!65 &599029317
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -496,6 +503,33 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 599029314}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!54 &599029320
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 599029314}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 112
+  m_CollisionDetection: 0
 --- !u!1 &621544655
 GameObject:
   m_ObjectHideFlags: 0
@@ -1023,6 +1057,7 @@ GameObject:
   - component: {fileID: 1049467233}
   - component: {fileID: 1049467232}
   - component: {fileID: 1049467231}
+  - component: {fileID: 1049467235}
   m_Layer: 0
   m_Name: Cube (2)
   m_TagString: Untagged
@@ -1039,7 +1074,7 @@ Transform:
   m_GameObject: {fileID: 1049467229}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3, y: 1.5, z: -10}
+  m_LocalPosition: {x: -3, y: 1, z: -10}
   m_LocalScale: {x: 1, y: 3, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1059,14 +1094,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: 
   Level: 0
-  Health: 0
+  Health: 10
   Armor: 0
   Mana: 0
   Dmg: 0
   AttackRange: 0
   Exp: 0
-  Invinsible: 0
   Character_Class: 0
+  Invinsible: 0
+  Stun: 0
 --- !u!65 &1049467232
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1138,6 +1174,33 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1049467229}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!54 &1049467235
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1049467229}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 112
+  m_CollisionDetection: 0
 --- !u!1001 &1058395957
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1259,6 +1322,7 @@ GameObject:
   - component: {fileID: 1196652413}
   - component: {fileID: 1196652412}
   - component: {fileID: 1196652411}
+  - component: {fileID: 1196652415}
   m_Layer: 0
   m_Name: Cube
   m_TagString: Untagged
@@ -1275,7 +1339,7 @@ Transform:
   m_GameObject: {fileID: 1196652409}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.5, z: -10}
+  m_LocalPosition: {x: 0, y: 1, z: -10}
   m_LocalScale: {x: 1, y: 3, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1295,14 +1359,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Name: 
   Level: 0
-  Health: 0
+  Health: 10
   Armor: 0
   Mana: 0
   Dmg: 0
   AttackRange: 0
   Exp: 0
-  Invinsible: 0
   Character_Class: 0
+  Invinsible: 0
+  Stun: 0
 --- !u!65 &1196652412
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1374,6 +1439,33 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1196652409}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!54 &1196652415
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1196652409}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 112
+  m_CollisionDetection: 0
 --- !u!1 &1198158936
 GameObject:
   m_ObjectHideFlags: 0
@@ -1891,7 +1983,7 @@ Transform:
   m_GameObject: {fileID: 2015538032}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0.53, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
