@@ -14,9 +14,11 @@ public class CharacterController : MonoBehaviour
     public float Dmg;
     public float AttackRange;
     public float Exp;
-    public bool Invinsible;
     public Class Character_Class;
     public Ability[] Abilities;
+    [Header("Character Status")]
+    public bool Invinsible;
+    public bool Stun;
     private void Update() {
         Debug.DrawRay(transform.position, transform.forward, Color.green);
         if(Input.GetKeyDown(KeyCode.Mouse0))
