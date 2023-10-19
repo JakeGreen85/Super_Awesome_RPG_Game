@@ -137,9 +137,27 @@ MonoBehaviour:
   m_GameObject: {fileID: 55485533}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4dc31cc3f2f9e424eacdc1a45fac2425, type: 3}
+  m_Script: {fileID: 11500000, guid: 815f77affaaab0449bf24cbca32324c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Name: Warrior
+  Level: 1
+  Health: 100
+  Armor: 0
+  Mana: 100
+  Dmg: 1
+  AttackRange: 3
+  Exp: 0
+  Invinsible: 0
+  Character_Class: 0
+  _chargeSpeed: 0
+  chargeDelay: 0
+  chargeDuration: 0
+  _isCharging: 0
+  armorMultiplier: 0
+  multiplierDuration: 0
+  ultimateRange: 0
+  ultimateDuration: 0
 --- !u!1 &55487865
 GameObject:
   m_ObjectHideFlags: 0
@@ -397,6 +415,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 72152cdd7f3b2564bab12c19b50e10a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Name: 
+  Level: 0
+  Health: 0
+  Armor: 0
+  Mana: 0
+  Dmg: 0
+  AttackRange: 0
+  Exp: 0
+  Invinsible: 0
+  Character_Class: 0
 --- !u!65 &599029317
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1029,6 +1057,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 72152cdd7f3b2564bab12c19b50e10a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Name: 
+  Level: 0
+  Health: 0
+  Armor: 0
+  Mana: 0
+  Dmg: 0
+  AttackRange: 0
+  Exp: 0
+  Invinsible: 0
+  Character_Class: 0
 --- !u!65 &1049467232
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1114,7 +1152,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4459864850019384738, guid: 6bacecc4f3df9584198879c73a6b6c36, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 9.16
       objectReference: {fileID: 0}
     - target: {fileID: 4459864850019384738, guid: 6bacecc4f3df9584198879c73a6b6c36, type: 3}
       propertyPath: m_LocalPosition.y
@@ -1122,7 +1160,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4459864850019384738, guid: 6bacecc4f3df9584198879c73a6b6c36, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 1.45
       objectReference: {fileID: 0}
     - target: {fileID: 4459864850019384738, guid: 6bacecc4f3df9584198879c73a6b6c36, type: 3}
       propertyPath: m_LocalRotation.w
@@ -1205,7 +1243,7 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 4459864850019384750, guid: 6bacecc4f3df9584198879c73a6b6c36, type: 3}
-      insertIndex: -1
+      insertIndex: 5
       addedObject: {fileID: 55485540}
   m_SourcePrefab: {fileID: 100100000, guid: 6bacecc4f3df9584198879c73a6b6c36, type: 3}
 --- !u!1 &1196652409
@@ -1255,6 +1293,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 72152cdd7f3b2564bab12c19b50e10a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Name: 
+  Level: 0
+  Health: 0
+  Armor: 0
+  Mana: 0
+  Dmg: 0
+  AttackRange: 0
+  Exp: 0
+  Invinsible: 0
+  Character_Class: 0
 --- !u!65 &1196652412
 BoxCollider:
   m_ObjectHideFlags: 0
