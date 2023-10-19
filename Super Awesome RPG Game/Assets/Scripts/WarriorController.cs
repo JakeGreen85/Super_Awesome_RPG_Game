@@ -19,6 +19,8 @@ public class WarriorController : CharacterController
     public float _chargeSpeed;
     public float chargeDelay;
     public float chargeDuration;
+    public int knockback;
+    public float knockbackDmgMultiplier;
     public bool _isCharging = false;
 
     [Space(5)]
@@ -41,7 +43,7 @@ public class WarriorController : CharacterController
 
 
     /// <summary>
-    /// Checks the imput from the user and casts the corresponding ability
+    /// Checks the input from the user and casts the corresponding ability
     /// </summary>
     /// <param name="ability">The ability index which will be cast (1-4)</param>
     public override void UseAbility(int ability)
@@ -90,6 +92,7 @@ public class WarriorController : CharacterController
     {
         // First we do the delay
         float startTime = Time.time;
+        // Play wind_up sound
         GetComponent<FirstPersonController>().playerCanMove = false;
         while(Time.time - startTime < delay)
         {
@@ -97,6 +100,7 @@ public class WarriorController : CharacterController
         }
 
         // Then we charge
+        // Play charge sound
         startTime = Time.time;
         while(Time.time - startTime < duration)
         {
@@ -127,6 +131,7 @@ public class WarriorController : CharacterController
     /// <returns></returns>
     private IEnumerator IncreaseArmorForDuration(float multiplier, float duration)
     {
+        // Play armor_up sound
         float startTime = Time.time;
         Armor *= multiplier;
         while(Time.time - startTime < duration)
@@ -146,6 +151,7 @@ public class WarriorController : CharacterController
     /// <returns></returns>
     private void Ability3(float duration, float multiplier)
     {
+
         StartCoroutine(Deadly_Blow(duration, multiplier));
     }
 
@@ -159,6 +165,7 @@ public class WarriorController : CharacterController
     {
         // Wind up (delay)
         float startTime = Time.time;
+        // play wind_up sound
         while(Time.time - startTime < duration)
         {
             yield return null;
@@ -166,9 +173,10 @@ public class WarriorController : CharacterController
 
         // Then hit (collision detection)
         RaycastHit hit;
+        // Play swinging sound
         if(Physics.Raycast(transform.position, transform.forward, out hit, AttackRange))
         {
-            Debug.Log(hit.transform.GetComponent<CharacterController>().Name + Dmg*multiplier);
+            // Play hit sound
             hit.transform.GetComponent<CharacterController>().Health -= Dmg*multiplier;
         }
     }
@@ -188,6 +196,7 @@ public class WarriorController : CharacterController
         {
             if(Vector3.Distance(this.transform.position, character.transform.position) < range)
             {
+                // Play celestial_veil sound on affected players
                 StartCoroutine(Invinsibile_Duration(duration, character));
             }
         }
@@ -218,4 +227,16 @@ public class WarriorController : CharacterController
         character.GetComponent<CharacterController>().Invinsible = false;
             
     }
+
+
+    private void OnCollisionEnter(Collision other) {
+        // Knockback enemies when charging into them
+        if(_isCharging)
+        {
+            // Play charge_hit_sound
+            other.rigidbody.AddForce(this.transform.forward.x*knockback,knockback,this.transform.forward.z*knockback, ForceMode.VelocityChange);
+            other.gameObject.GetComponent<CharacterController>().Health -= Dmg * knockbackDmgMultiplier;
+        }
+    }
+
 }
