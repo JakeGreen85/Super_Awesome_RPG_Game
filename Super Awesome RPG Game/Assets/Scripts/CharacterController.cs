@@ -20,7 +20,6 @@ public class CharacterController : MonoBehaviour
     public bool Invinsible;
     public bool Stun;
     private void Update() {
-        Debug.DrawRay(transform.position, transform.forward, Color.green);
         if(Input.GetKeyDown(KeyCode.Mouse0))
         {
             Debug.Log("Auto_Attack");
