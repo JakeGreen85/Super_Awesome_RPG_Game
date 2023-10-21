@@ -39,3 +39,9 @@ Some other ideas for the game so far:
 - The warrior class has been prototyped
 - There is a sample scene for tests
 - Dummy enemies (World of Warcraft dummies)
+
+---
+# What is being worked on right now?
+- Implementing all the classes
+- Inventory system
+- Rewards system
