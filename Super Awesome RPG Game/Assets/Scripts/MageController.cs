@@ -22,21 +22,29 @@ public class MageController : CharacterController
     [Space(5)]
 
     [Header("Arcane Barrage")]
-    public float armorMultiplier;
-    public float multiplierDuration;
+    public int projectiles;
+    public float projectileSpeed;
+    public float barrageRange;
+    public float barrageDuration;
+    public GameObject smallPrefab;
 
     [Space(5)]
 
     [Header("Chaos Bolt")]
-    public float windUpDuration;
+    public float boltSize;
+    public float boltSpeed;
+    public float boltRange;
     public float damageMultiplier;
+    public float largePrefab;
 
     [Space(5)]
 
-    [Header("Celestial Veil")]
+    [Header("Arcane Cataclysm")]
     public float ultimateRange;
-    public float ultimateDuration;
-
+    public float ultimateWidth;
+    public float ultimateMultiplier;
+    public float ultimateCharge;
+    public float ultimateKnockback;
 
     /// <summary>
     /// Checks the input from the user and casts the corresponding ability
@@ -47,44 +55,42 @@ public class MageController : CharacterController
         switch(ability)
         {
             case 1:
-                Ability1(blinkDistance);
+                Ability1(blinkDistance, blinkCooldown);
                 break;
             case 2:
-                Ability2(armorMultiplier, multiplierDuration);
+                Ability2(projectiles, projectileSpeed, range, barrageDuration);
                 break;
             case 3:
-                Ability3(windUpDuration, damageMultiplier);
+                Ability3(boltSize, boltSpeed, boltRange, damageMultiplier);
                 break;
             case 4:
-                Ability4(ultimateRange, ultimateDuration);
+                Ability4(ultimateRange, ultimateWidth, ultimateMultiplier, ultimateCharge, ultimateKnockback);
                 break;
             default:
                 break;
         }
     }
 
-
     /// <summary>
     /// Blink: Teleport in the given direction
     /// </summary>
-    /// <param name="delay">Charge is delayed by this amount</param>
-    /// <param name="duration">Charge lasts for this amount</param>
-    private void Ability1(float dist)
+    /// <param name="dist">How far the player travels</param>
+    /// <param name="cooldown">Cooldown of ability</param>
+    private void Ability1(float dist, float cooldown)
     {
         Vector3 dir = new Vector3(Input.GetAxis("Horizontal")*dist, 0, Input.GetAxis("Vertical")*dist);
         transform.SetPositionAndRotation(transform.position + dir, transform.rotation);
-
     }
-
 
     /// <summary>
     /// Arcane Barrage: Send out a barrage of arcane torrents, that follows your crosshair until colliding with something
     /// </summary>
-    /// <param name="multiplier">Armor increase (armor * multiplier)</param>
-    /// <param name="duration">Duration of the armor increase</param>
-    private void Ability2(float multiplier, float duration)
+    /// <param name="projectiles">How many projectiles to send out</param>
+    /// <param name="speed">Speed of projectiles</param>
+    /// <param name="range">Range of projectiles</param>
+    private void Ability2(int projectiles, float speed, float range, float duration)
     {
-        StartCoroutine(IncreaseArmorForDuration(multiplier, duration));
+        StartCoroutine(Arcane_Barrage(projectiles, range, duration));
     }
 
     /// <summary>
@@ -93,73 +99,73 @@ public class MageController : CharacterController
     /// <param name="multiplier">Armor multiplier (armor * multiplier)</param>
     /// <param name="duration">Duration of the armor increase</param>
     /// <returns></returns>
-    private IEnumerator IncreaseArmorForDuration(float multiplier, float duration)
+    private IEnumerator Arcane_Barrage(float projectiles, float range, float duration)
     {
-        // Play armor_up sound
-        float startTime = Time.time;
-        Armor *= multiplier;
-        while(Time.time - startTime < duration)
+        for(int i=0, i < projectiles, i++)
         {
-            yield return null;
-        }
 
-        Armor /= multiplier;
+            float startTime = Time.time;
+            while(Time.time - startTime < duration)
+            {
+                yield return null;
+            }
+
+            // Each projectile should follow the player crosshair until colliding  with something
+            StartCoroutine(Arcane_Projectile(smallPrefab)); 
+        }
     }
 
+    private IEnumerator Arcane_Projectile(GameObject prefab)
+    {
+        Instantiate(prefab);
+    }
 
     /// <summary>
     /// Chaos Bolt: Send out a huge projectile that follows your crosshair until colliding with something
     /// </summary>
-    /// <param name="duration">The duration of the wind up (delay of attack)</param>
-    /// <param name="multiplier">The damage multiplier (base damage * multiplier)</param>
+    /// <param name="size">Size of projectile</param>
+    /// <param name="speed">Speed of projectile</param>
+    /// <param name="range">Range of projectile</param>
+    /// <param name="multiplier">Damage multiplier of projectile</param>
     /// <returns></returns>
-    private void Ability3(float duration, float multiplier)
+    private void Ability3(float size, float speed, float range, float multiplier)
     {
-
-        StartCoroutine(Deadly_Blow(duration, multiplier));
+        StartCoroutine(Arcane_Projectile(largePrefab));
     }
 
     /// <summary>
-    /// IEnumerator for Annihilation Blow (Ability3)
+    /// Arcane Cataclysm: Ultimate ability (Send of wave of arcane energy that knocks back enemies and gives debuff)
     /// </summary>
-    /// <param name="duration">The duration of the wind up (delay of attack)</param>
-    /// <param name="multiplier">The damage multiplier (base damage * multiplier)</param>
-    /// <returns></returns>
-    private IEnumerator Deadly_Blow(float duration, float multiplier)
+    /// <param name="range">The range of the wave</param>
+    /// <param name="width">Width of wave</param>
+    /// <param name="multiplier">Damage multiplier of ultimate</param>
+    /// <param name="charge">Charge duration of ultimate</param>
+    private void Ability4(float range, float width, float multiplier, float charge, float knockback)
     {
-        // Wind up (delay)
+        StartCoroutine(Arcane_Cataclysm(charge, multiplier, range, width, knockback));
+    }
+
+
+    private IEnumerator Arcane_Cataclysm(float charge, float multiplier, float range, float width, float knockback)
+    {
+        // Charge attack
         float startTime = Time.time;
-        // play wind_up sound
-        while(Time.time - startTime < duration)
+        while(Time.time - startTime < charge)
         {
             yield return null;
         }
 
-        // Then hit (collision detection)
-        RaycastHit hit;
-        // Play swinging sound
-        if(Physics.Raycast(transform.position, transform.forward, out hit, AttackRange))
+        // Register hits 
+        RaycastHit[] hits;
+        if(Physics.SphereCastAll(transform.position, width, transform.forward, out hit, range))
         {
-            // Play hit sound
-            hit.transform.GetComponent<CharacterController>().Health -= Dmg*multiplier;
+            foreach(RaycastHit hit in hits)
+            {
+                // subtract health and knockback each enemy hit
+                hit.transform.GetComponent<CharacterController>().Health -= Dmg*multiplier;
+                hit.GetComponent<rigidbody>().AddForce(transform.forward.x*knockback, knockback, transform.forward.z*knockback, ForceMode.VelocityChange);
+            }
         }
-    }
-
-
-    /// <summary>
-    /// Celestial Veil: Ultimate ability (Give invinsibility)
-    /// </summary>
-    /// <param name="range">The range for which players gain invinsibility</param>
-    /// <param name="duration">The duration for invinsibility</param>
-    private void Ability4(float range, float duration)
-    {
-        
-    }
-
-
-    private void OnCollisionEnter(Collision other) 
-    {
-        
     }
 
 }
