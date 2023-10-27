@@ -15,22 +15,35 @@ public class ClassTemplate : CharacterController
 
     [Space(3)]
 
-    [Header("Ability 1")]
+    [Header("Piercing Shot")]
+    public float piercingRange;
+    public float piercingCharge;
     
 
     [Space(5)]
 
-    [Header("Ability 2")]
+    [Header("Crippling Volley")]
+    public float cripplingRadius;
+    public float cripplingEffect;
+    public float damageMultiplier;
+    public float cripplingDuration
     
 
     [Space(5)]
 
-    [Header("Ability 3")]
+    [Header("Eagle Eye Precision")]
+    public float precisionCharge;;
+    public float criticalHitIncrease;
+    public float precitionDuration;
     
 
     [Space(5)]
 
-    [Header("Ability 4")]
+    [Header("Storm of Arrows")]
+    public float ultimateRadius;
+    public float ultimateDuration;
+    public float ultimateMultiplier;
+    public float ultimateCharge;
     
 
 
@@ -43,23 +56,27 @@ public class ClassTemplate : CharacterController
         switch(ability)
         {
             case 1:
-                Ability1();
+                Ability1(piercingRange, piercingCharge);
                 break;
             case 2:
-                Ability2();
+                Ability2(cripplingRadius, cripplingEffect, damageMultiplier, cripplingDuration);
                 break;
             case 3:
-                Ability3();
+                Ability3(precisionCharge, criticalHitIncrease, precitionDuration);
                 break;
             case 4:
-                Ability4();
+                Ability4(ultimateRadius, ultimateDuration, ultimateMultiplier, ultimateCharge);
                 break;
             default:
                 break;
         }
     }
-
-    private void Ability1()
+    /// <summary>
+    /// Piercing Shot: Projectile that pierces through enemies
+    /// </summary>
+    /// <param name="range"></param>
+    /// <param name="charge"></param>
+    private void Ability1(float range, float charge)
     {
         
     }
@@ -69,7 +86,14 @@ public class ClassTemplate : CharacterController
         
     }
 
-    private void Ability2()
+    /// <summary>
+    /// Crippling Volley: Launch arrows in an area, that damage and slows enemies
+    /// </summary>
+    /// <param name="radius"></param>
+    /// <param name="effect"></param>
+    /// <param name="multiplier"></param>
+    /// <param name="duration"></param>
+    private void Ability2(float radius, float effect, float multiplier, float duration)
     {
 
     }
@@ -79,7 +103,13 @@ public class ClassTemplate : CharacterController
         
     }
 
-    private void Ability3()
+    /// <summary>
+    /// Eagle Eye Precision: Enter a state of heightened focus that increase attackspeed and critical hit chance
+    /// </summary>
+    /// <param name="charge"></param>
+    /// <param name="cHitIncrease"></param>
+    /// <param name="duration"></param>
+    private void Ability3(float charge, float cHitIncrease, float duration)
     {
 
     }
@@ -89,7 +119,14 @@ public class ClassTemplate : CharacterController
         
     }
 
-    private void Ability4()
+    /// <summary>
+    /// Storm of Arrows: Launch a volley of deadly arrows that cause a lot of damage to enemies in the area
+    /// </summary>
+    /// <param name="radius"></param>
+    /// <param name="duration"></param>
+    /// <param name="multiplier"></param>
+    /// <param name="charge"></param>
+    private void Ability4(float radius, float duration, float multiplier, float charge)
     {
         
     }
